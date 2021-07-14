@@ -10,7 +10,9 @@ export const TwoColumnDnD = ({
   secondListItems,
   gridOptions,
   listStyle,
-  itemStyle
+  itemStyle,
+  warningFunction,
+  forbiddenIndexes
 }) => {
   const [lists, setLists] = useState({
     firstListItems: firstListItems || [],
@@ -30,6 +32,14 @@ export const TwoColumnDnD = ({
         )
         setLists({ ...lists, firstListItems: newFirst })
       }
+      return
+    }
+
+    if (
+      destination.index <= forbiddenIndexes[0] ||
+      destination.index >= forbiddenIndexes[1]
+    ) {
+      if (warningFunction) warningFunction()
       return
     }
 
@@ -130,7 +140,11 @@ export const TwoColumnDnD = ({
 TwoColumnDnD.propTypes = {
   firstListItems: PropTypes.array.isRequired,
   secondListItems: PropTypes.array.isRequired,
-  gridOptions: PropTypes.object
+  gridOptions: PropTypes.object,
+  warningFunction: PropTypes.func,
+  listStyle: PropTypes.object,
+  itemStyle: PropTypes.object,
+  forbiddenIndexes: PropTypes.array.isRequired
 }
 
 TwoColumnDnD.defaultProps = {

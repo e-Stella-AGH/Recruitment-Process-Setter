@@ -6,12 +6,17 @@ export const move = (
 ) => {
   const sourceClone = Array.from(source)
   const destClone = Array.from(destination)
+  const secondItems =
+    droppableSource.droppableId === 'secondList'
+      ? Array.from(source)
+      : undefined
+
   const [removed] = sourceClone.splice(droppableSource.index, 1)
 
   destClone.splice(droppableDestination.index, 0, removed)
 
   const result = {}
-  result[droppableSource.droppableId] = sourceClone
+  result[droppableSource.droppableId] = secondItems || sourceClone
   result[droppableDestination.droppableId] = destClone
 
   return result
