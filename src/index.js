@@ -36,7 +36,11 @@ export const TwoColumnDnD = ({
             <Droppable droppableId='firstList'>
               {(provided, snapshot) => (
                 <div ref={provided.innerRef}>
-                  <StageList items={lists.firstListItems} name='first' />
+                  <StageList
+                    items={lists.firstListItems}
+                    name='first'
+                    droppableProvided={provided}
+                  />
                   {provided.placeholder}
                 </div>
               )}
@@ -59,8 +63,11 @@ export const TwoColumnDnD = ({
             <Droppable droppableId='secondList'>
               {(provided, snapshot) => (
                 <div ref={provided.innerRef}>
-                  <StageList items={lists.secondListItems} name='second' />
-                  {provided.placeholder}
+                  <StageList
+                    items={lists.secondListItems}
+                    name='second'
+                    droppableProvided={provided}
+                  />
                 </div>
               )}
             </Droppable>
