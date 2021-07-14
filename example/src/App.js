@@ -1,10 +1,22 @@
 import React from 'react'
 
-import { ExampleComponent } from 'estella-two-column-dnd'
 import 'estella-two-column-dnd/dist/index.css'
+import { TwoColumnDnD } from "estella-two-column-dnd";
+
+const getItem = index => {
+  return {
+    title: `title-${index}`,
+    id: index
+  }
+}
+
+const getItems = n => {
+  return Array(n).fill(null)
+    .map((item, index) => getItem(index))
+}
 
 const App = () => {
-  return <ExampleComponent text="Create React Library Example 😄" />
+  return <TwoColumnDnD firstListItems={getItems(10)} secondListItems={getItems(5)} />
 }
 
 export default App
