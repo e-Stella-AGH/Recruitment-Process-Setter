@@ -3,18 +3,63 @@ import PropTypes from 'prop-types'
 import { StageList } from './StageList'
 import { Grid } from '@material-ui/core'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
+import { move, reorder } from './utils'
 
 export const TwoColumnDnD = ({
   firstListItems,
   secondListItems,
-  gridOptions
+  gridOptions,
+  listStyle,
+  itemStyle
 }) => {
   const [lists, setLists] = useState({
     firstListItems: firstListItems || [],
     secondListItems: secondListItems || []
   })
 
-  const onDragEnd = (result) => {}
+  const getList = (droppableId) =>
+    droppableId === 'firstList' ? lists.firstListItems : lists.secondListItems
+
+  const onDragEnd = (result) => {
+    const { source, destination } = result
+
+    if (!destination) {
+      if (source.droppableId === 'firstList') {
+        const newFirst = getList('firstList').filter(
+          (elem, index) => index !== source.index
+        )
+        setLists({ ...lists, firstListItems: newFirst })
+      }
+      return
+    }
+
+    if (source.droppableId === destination.droppableId) {
+      const items = reorder(
+        getList(source.droppableId),
+        source.index,
+        destination.index
+      )
+      let state = { firstListItems: items }
+      if (source.droppableId === 'secondList') {
+        state = { secondListItems: items }
+      }
+      setLists({
+        ...lists,
+        ...state
+      })
+    } else {
+      const result = move(
+        getList(source.droppableId),
+        getList(destination.droppableId),
+        source,
+        destination
+      )
+      setLists({
+        firstListItems: result.firstList,
+        secondListItems: result.secondList
+      })
+    }
+  }
 
   return (
     <div style={{ marginLeft: '10%', marginRight: '10%', marginTop: '2em' }}>
@@ -24,7 +69,7 @@ export const TwoColumnDnD = ({
           spacing={2}
           direction='row'
           alignItems='center'
-          justify='center'
+          justifyContent='center'
         >
           <Grid
             item
@@ -40,6 +85,8 @@ export const TwoColumnDnD = ({
                     items={lists.firstListItems}
                     name='first'
                     droppableProvided={provided}
+                    listStyle={listStyle}
+                    itemStyle={itemStyle}
                   />
                   {provided.placeholder}
                 </div>
@@ -67,6 +114,8 @@ export const TwoColumnDnD = ({
                     items={lists.secondListItems}
                     name='second'
                     droppableProvided={provided}
+                    listStyle={listStyle}
+                    itemStyle={itemStyle}
                   />
                 </div>
               )}

@@ -3,7 +3,13 @@ import PropTypes from 'prop-types'
 import { Stage } from './Stage'
 import { Draggable } from 'react-beautiful-dnd'
 
-export const StageList = ({ items, listStyle, stageType, name, droppableProvided }) => {
+export const StageList = ({
+  items,
+  listStyle,
+  itemStyle,
+  name,
+  droppableProvided
+}) => {
   return (
     <div style={{ ...listStyle }}>
       {items.map((item, index) => (
@@ -22,7 +28,7 @@ export const StageList = ({ items, listStyle, stageType, name, droppableProvided
                 item={item}
                 index={index}
                 key={`stage-${index}`}
-                style={stageType}
+                style={itemStyle}
               />
             </div>
           )}
