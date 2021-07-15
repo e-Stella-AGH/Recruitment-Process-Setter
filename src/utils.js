@@ -2,12 +2,13 @@ export const move = (
   source,
   destination,
   droppableSource,
-  droppableDestination
+  droppableDestination,
+  shouldRemoveFromSecondList
 ) => {
   const sourceClone = Array.from(source)
   const destClone = Array.from(destination)
   const secondItems =
-    droppableSource.droppableId === 'secondList'
+    droppableSource.droppableId === 'secondList' && !shouldRemoveFromSecondList
       ? Array.from(source)
       : undefined
 

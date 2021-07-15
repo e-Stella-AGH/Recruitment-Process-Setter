@@ -17,8 +17,14 @@ const getItems = n => {
 };
 
 const App = () => {
-  return <TwoColumnDnD firstListItems={getItems(10)} secondListItems={getItems(5)} forbiddenIndexes={[0, 15]}
-                       itemRender={(item) => (<Card style={{margin: '1em'}}><Typography variant="h6">{item.title}</Typography></Card>)} />;
+  return <TwoColumnDnD
+          firstListItems={getItems(10)}
+          secondListItems={getItems(5)}
+          forbiddenIndexes={[0, 15]}
+          itemRender={(item) => (<Card style={{margin: '1em'}}><Typography variant="h6">{item.title}</Typography></Card>)}
+          shouldRemoveFromSecondList={false}
+          shouldBlockAddingToSecondList={false}
+  />;
 };
 
 export default App;

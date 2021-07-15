@@ -13,7 +13,9 @@ export const TwoColumnDnD = ({
   warningFunction,
   secondListWarningFunction,
   itemRender,
-  forbiddenIndexes
+  forbiddenIndexes,
+  shouldBlockAddingToSecondList,
+  shouldRemoveFromSecondList
 }) => {
   const [lists, setLists] = useState({
     firstListItems: firstListItems || [],
@@ -36,7 +38,10 @@ export const TwoColumnDnD = ({
       return
     }
 
-    if (destination.droppableId === 'secondList') {
+    if (
+      destination.droppableId === 'secondList' &&
+      shouldBlockAddingToSecondList
+    ) {
       if (secondListWarningFunction) secondListWarningFunction()
       return
     }
@@ -68,7 +73,8 @@ export const TwoColumnDnD = ({
         getList(source.droppableId),
         getList(destination.droppableId),
         source,
-        destination
+        destination,
+        shouldRemoveFromSecondList
       )
       setLists({
         firstListItems: result.firstList,
@@ -152,7 +158,9 @@ TwoColumnDnD.propTypes = {
   itemStyle: PropTypes.object,
   secondListWarningFunction: PropTypes.func,
   itemRender: PropTypes.func.isRequired,
-  forbiddenIndexes: PropTypes.array.isRequired
+  forbiddenIndexes: PropTypes.array.isRequired,
+  shouldBlockAddingToSecondList: PropTypes.bool,
+  shouldRemoveFromSecondList: PropTypes.bool
 }
 
 TwoColumnDnD.defaultProps = {
