@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { StageList } from './StageList'
+import { ItemList } from './ItemList'
 import { Grid } from '@material-ui/core'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { move, reorder } from './utils'
@@ -10,9 +10,9 @@ export const TwoColumnDnD = ({
   secondListItems,
   gridOptions,
   listStyle,
-  itemStyle,
   warningFunction,
   secondListWarningFunction,
+  itemRender,
   forbiddenIndexes
 }) => {
   const [lists, setLists] = useState({
@@ -97,12 +97,12 @@ export const TwoColumnDnD = ({
             <Droppable droppableId='firstList'>
               {(provided, snapshot) => (
                 <div ref={provided.innerRef}>
-                  <StageList
+                  <ItemList
                     items={lists.firstListItems}
                     name='first'
                     droppableProvided={provided}
                     listStyle={listStyle}
-                    itemStyle={itemStyle}
+                    itemRender={itemRender}
                   />
                   {provided.placeholder}
                 </div>
@@ -126,12 +126,12 @@ export const TwoColumnDnD = ({
             <Droppable droppableId='secondList'>
               {(provided, snapshot) => (
                 <div ref={provided.innerRef}>
-                  <StageList
+                  <ItemList
                     items={lists.secondListItems}
                     name='second'
                     droppableProvided={provided}
                     listStyle={listStyle}
-                    itemStyle={itemStyle}
+                    itemRender={itemRender}
                   />
                 </div>
               )}
@@ -151,6 +151,7 @@ TwoColumnDnD.propTypes = {
   listStyle: PropTypes.object,
   itemStyle: PropTypes.object,
   secondListWarningFunction: PropTypes.func,
+  itemRender: PropTypes.func.isRequired,
   forbiddenIndexes: PropTypes.array.isRequired
 }
 

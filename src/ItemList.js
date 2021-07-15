@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Stage } from './Stage'
+import { Item } from './Item'
 import { Draggable } from 'react-beautiful-dnd'
 
-export const StageList = ({
+export const ItemList = ({
   items,
   listStyle,
-  itemStyle,
+  itemRender,
   name,
   droppableProvided
 }) => {
@@ -24,12 +24,7 @@ export const StageList = ({
               {...provided.draggableProps}
               {...provided.dragHandleProps}
             >
-              <Stage
-                item={item}
-                index={index}
-                key={`stage-${index}`}
-                style={itemStyle}
-              />
+              <Item item={item} key={`stage-${index}`} render={itemRender} />
             </div>
           )}
         </Draggable>
@@ -39,12 +34,13 @@ export const StageList = ({
   )
 }
 
-StageList.propTypes = {
+ItemList.propTypes = {
   items: PropTypes.array.isRequired,
-  listStyle: PropTypes.object
+  listStyle: PropTypes.object,
+  itemRender: PropTypes.func.isRequired
 }
 
-StageList.defaultProps = {
+ItemList.defaultProps = {
   listStyle: {
     backgroundColor: '#c3d3f3',
     padding: '1em'
