@@ -12,6 +12,7 @@ export const TwoColumnDnD = ({
   listStyle,
   itemStyle,
   warningFunction,
+  secondListWarningFunction,
   forbiddenIndexes
 }) => {
   const [lists, setLists] = useState({
@@ -32,6 +33,11 @@ export const TwoColumnDnD = ({
         )
         setLists({ ...lists, firstListItems: newFirst })
       }
+      return
+    }
+
+    if (destination.droppableId === 'secondList') {
+      if (secondListWarningFunction) secondListWarningFunction()
       return
     }
 
@@ -144,6 +150,7 @@ TwoColumnDnD.propTypes = {
   warningFunction: PropTypes.func,
   listStyle: PropTypes.object,
   itemStyle: PropTypes.object,
+  secondListWarningFunction: PropTypes.func,
   forbiddenIndexes: PropTypes.array.isRequired
 }
 

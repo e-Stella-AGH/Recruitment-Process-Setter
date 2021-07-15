@@ -16,7 +16,7 @@ const getItems = n => {
 }
 
 const App = () => {
-  return <TwoColumnDnD firstListItems={getItems(10)} secondListItems={getItems(5)} warningFunction={() => alert("ty chuju")} forbiddenIndexes={[5, 9]} />
+  return <TwoColumnDnD firstListItems={getItems(10)} secondListItems={getItems(5)} forbiddenIndexes={[0, 15]} />
 }
 
 export default App
