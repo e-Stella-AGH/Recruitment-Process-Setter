@@ -168,13 +168,13 @@ Value that allows deletions from [second list](#second-list-protection)</td> <td
 
 
 ### Forbidden actions
-As our business logic required, items from lists cannot be dragged wherever. For example, first and last items from the first
+Our business logic required that items from lists cannot be dragged wherever. For example, first and last items from the first
 list cannot be moved. To accomplish this task, we've added a prop called `forbiddenIndexes`. It's an array of two numbers.
-For example, if it's set as [2, 5], elements to index 2 and from index 5 cannot be moved (includes trying of adding another
+For example, if it's set as [2, 5], elements to index 2 and from index 5 cannot be moved (includes trying to another
 element from second list).
 
 ### Second List Protection
-As our business logic required, second list is (for us) immutable. To prepare this library for more free usage, we've developed
+Our business logic required that second list is immutable. To prepare this library for more free usage, we've developed
 two values, passed as props:
  - `shouldBlockAddingToSecondList` - when is set to `true`, items from the first list cannot be dropped into the second list
  - `shouldRemoveFromSecondList` - when is set to `false`, items from the second list cannot be removed from this list
