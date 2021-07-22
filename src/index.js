@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { ItemList } from './ItemList'
 import { Grid } from '@material-ui/core'
@@ -21,6 +21,21 @@ export const TwoColumnDnD = ({
     firstListItems: firstListItems || [],
     secondListItems: secondListItems || []
   })
+
+  useEffect(() => {
+    if (firstListItems !== lists.firstListItems) {
+      setLists({
+        ...lists,
+        firstListItems: firstListItems
+      })
+    }
+    if (secondListItems !== lists.secondListItems) {
+      setLists({
+        ...lists,
+        secondListItems: secondListItems
+      })
+    }
+  }, [firstListItems, secondListItems])
 
   const getList = (droppableId) =>
     droppableId === 'firstList' ? lists.firstListItems : lists.secondListItems
