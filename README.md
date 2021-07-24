@@ -164,6 +164,56 @@ Value that blocks additions for [second list](#second-list-protection)</td> <td>
 Value that allows deletions from [second list](#second-list-protection)</td> <td>bool</td> <td>✖</td> <td>none</td>
 </tr>
 
+<tr>
+  <td>
+
+`outerDivStyle`
+
+  </td> <td>
+
+Style outer div that contains both Submit button and columns</td> <td>object</td> <td>✖</td> <td>none</td>
+</tr>
+
+<tr>
+  <td>
+
+`onSubmit`
+
+  </td> <td>
+
+Function that triggers when submit button was clicked</td> <td>function</td> <td>✖</td> <td>none</td>
+</tr>
+
+<tr>
+  <td>
+
+`materialButtonProps`
+
+  </td> <td>
+
+Object with material props for submit button</td> <td>object</td> <td>✖</td> <td>none</td>
+</tr>
+
+<tr>
+  <td>
+
+`left/center/rigthSubmitGridProps`
+
+  </td> <td>
+
+Grid row properties to place submit button well</td> <td>object</td> <td>✖</td> <td>none</td>
+</tr>
+
+<tr>
+  <td>
+
+`submitDivStyle`
+
+  </td> <td>
+
+Style for div from submit button</td> <td>object</td> <td>✖</td> <td>none</td>
+</tr>
+
 </table>
 
 

@@ -24,6 +24,9 @@ const App = () => {
           itemRender={(item) => (<Card style={{margin: '1em'}}><Typography variant="h6">{item.title}</Typography></Card>)}
           shouldRemoveFromSecondList={false}
           shouldBlockAddingToSecondList={false}
+          materialButtonProps={{variant: "outlined"}}
+          onSubmit={(first, second) => console.log(first, second)}
+          leftSubmitGridProps={{lg: 6}}
   />;
 };
 
