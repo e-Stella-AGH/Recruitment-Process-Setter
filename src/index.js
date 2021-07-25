@@ -32,13 +32,13 @@ export const TwoColumnDnD = ({
   useEffect(() => {
     if (firstListItems !== lists.firstListItems) {
       setLists({
-        ...lists,
-        firstListItems: firstListItems
+        firstListItems: firstListItems,
+        secondListItems: secondListItems
       })
     }
     if (secondListItems !== lists.secondListItems) {
       setLists({
-        ...lists,
+        firstListItems: firstListItems,
         secondListItems: secondListItems
       })
     }

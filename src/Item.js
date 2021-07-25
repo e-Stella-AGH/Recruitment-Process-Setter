@@ -6,6 +6,6 @@ export const Item = ({ render, item }) => {
 }
 
 Item.propTypes = {
-  item: PropTypes.object.isRequired,
+  item: PropTypes.any.isRequired,
   render: PropTypes.func.isRequired
 }
