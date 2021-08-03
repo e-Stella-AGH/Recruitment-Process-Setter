@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import { ItemList } from './ItemList'
-import { Grid } from '@material-ui/core'
+import { Button, Grid } from '@material-ui/core'
 import { DragDropContext, Droppable } from 'react-beautiful-dnd'
 import { move, reorder } from './utils'
 
@@ -15,12 +15,34 @@ export const TwoColumnDnD = ({
   itemRender,
   forbiddenIndexes,
   shouldBlockAddingToSecondList,
-  shouldRemoveFromSecondList
+  shouldRemoveFromSecondList,
+  outerDivStyle,
+  onSubmit,
+  materialButtonProps,
+  leftSubmitGridProps,
+  centerSubmitGridProps,
+  rightSubmitGridProps,
+  submitDivStyle
 }) => {
   const [lists, setLists] = useState({
     firstListItems: firstListItems || [],
     secondListItems: secondListItems || []
   })
+
+  useEffect(() => {
+    if (firstListItems !== lists.firstListItems) {
+      setLists({
+        firstListItems: firstListItems,
+        secondListItems: secondListItems
+      })
+    }
+    if (secondListItems !== lists.secondListItems) {
+      setLists({
+        firstListItems: firstListItems,
+        secondListItems: secondListItems
+      })
+    }
+  }, [firstListItems, secondListItems])
 
   const getList = (droppableId) =>
     droppableId === 'firstList' ? lists.firstListItems : lists.secondListItems
@@ -84,7 +106,7 @@ export const TwoColumnDnD = ({
   }
 
   return (
-    <div style={{ marginLeft: '10%', marginRight: '10%', marginTop: '2em' }}>
+    <div {...outerDivStyle}>
       <DragDropContext onDragEnd={onDragEnd}>
         <Grid
           container
@@ -145,6 +167,22 @@ export const TwoColumnDnD = ({
           </Grid>
         </Grid>
       </DragDropContext>
+      <div style={{ ...submitDivStyle }}>
+        <Grid container>
+          <Grid item {...leftSubmitGridProps} />
+          <Grid item {...centerSubmitGridProps}>
+            <Button
+              {...materialButtonProps}
+              onClick={() =>
+                onSubmit(lists.firstListItems, lists.secondListItems)
+              }
+            >
+              Submit
+            </Button>
+          </Grid>
+          <Grid item {...rightSubmitGridProps} />
+        </Grid>
+      </div>
     </div>
   )
 }
@@ -160,7 +198,14 @@ TwoColumnDnD.propTypes = {
   itemRender: PropTypes.func.isRequired,
   forbiddenIndexes: PropTypes.array.isRequired,
   shouldBlockAddingToSecondList: PropTypes.bool,
-  shouldRemoveFromSecondList: PropTypes.bool
+  shouldRemoveFromSecondList: PropTypes.bool,
+  onSubmit: PropTypes.func,
+  materialButtonProps: PropTypes.object,
+  outerDivStyle: PropTypes.object,
+  leftSubmitGridProps: PropTypes.object,
+  centerSubmitGridProps: PropTypes.object,
+  rightSubmitGridProps: PropTypes.object,
+  submitDivStyle: PropTypes.object
 }
 
 TwoColumnDnD.defaultProps = {
