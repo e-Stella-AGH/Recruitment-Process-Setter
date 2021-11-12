@@ -22,7 +22,10 @@ export const TwoColumnDnD = ({
   leftSubmitGridProps,
   centerSubmitGridProps,
   rightSubmitGridProps,
-  submitDivStyle
+  submitDivStyle,
+  onFirstListChange,
+  onSecondListChange,
+  shouldDisplaySubmit
 }) => {
   const [lists, setLists] = useState({
     firstListItems: firstListItems || [],
@@ -35,12 +38,14 @@ export const TwoColumnDnD = ({
         firstListItems: firstListItems,
         secondListItems: secondListItems
       })
+      onFirstListChange?.(firstListItems)
     }
     if (secondListItems !== lists.secondListItems) {
       setLists({
         firstListItems: firstListItems,
         secondListItems: secondListItems
       })
+      onSecondListChange?.(secondListItems)
     }
   }, [firstListItems, secondListItems])
 
@@ -171,6 +176,7 @@ export const TwoColumnDnD = ({
         <Grid container>
           <Grid item {...leftSubmitGridProps} />
           <Grid item {...centerSubmitGridProps}>
+            { shouldDisplaySubmit &&
             <Button
               {...materialButtonProps}
               onClick={() =>
@@ -179,6 +185,7 @@ export const TwoColumnDnD = ({
             >
               Submit
             </Button>
+          }
           </Grid>
           <Grid item {...rightSubmitGridProps} />
         </Grid>
@@ -205,7 +212,10 @@ TwoColumnDnD.propTypes = {
   leftSubmitGridProps: PropTypes.object,
   centerSubmitGridProps: PropTypes.object,
   rightSubmitGridProps: PropTypes.object,
-  submitDivStyle: PropTypes.object
+  submitDivStyle: PropTypes.object,
+  onFirstListChange: PropTypes.func,
+  onSecondListChange: PropTypes.func,
+  shouldDisplaySubmit: PropTypes.bool
 }
 
 TwoColumnDnD.defaultProps = {
