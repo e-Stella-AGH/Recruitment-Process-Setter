@@ -34,6 +34,7 @@ const App = () => {
           shouldBlockAddingToSecondList={false}
           materialButtonProps={{variant: "outlined"}}
           onSubmit={(first, second) => console.log(first, second)}
+          onFirstListChange={(items) => console.log(items)}
           leftSubmitGridProps={{lg: 6}}
   />;
 };

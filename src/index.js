@@ -90,6 +90,9 @@ export const TwoColumnDnD = ({
       let state = { firstListItems: items }
       if (source.droppableId === 'secondList') {
         state = { secondListItems: items }
+        onSecondListChange?.(items)
+      } else {
+        onFirstListChange(items)
       }
       setLists({
         ...lists,
@@ -107,6 +110,8 @@ export const TwoColumnDnD = ({
         firstListItems: result.firstList,
         secondListItems: result.secondList
       })
+      onFirstListChange?.(result.firstList)
+      onSecondListChange?.(result.secondList)
     }
   }
 
